@@ -3,3 +3,4 @@ requests
 gunicorn
 pandas
 scikit-learn
+openpyxl
