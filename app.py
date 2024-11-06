@@ -6,7 +6,7 @@ from sklearn.neighbors import NearestNeighbors
 app = Flask(__name__)
 
 # 讀取 Excel 檔案並準備數據
-df = pd.read_excel("C:\\Users\\chen\\Desktop\\台灣樂團資料.xlsx")
+df = pd.read_excel("台灣樂團資料.xlsx")
 features = ['danceability', 'energy', 'valence', 'tempo']
 
 # 確保數據沒有缺失值
