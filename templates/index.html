@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>心情音樂推薦</title>
+</head>
+<body>
+    <h1>輸入你的心情，獲取音樂推薦</h1>
+    <p>可輸入的心情選項：</p>
+    <ul>
+        <li>開心</li>
+        <li>悲傷</li>
+        <li>放鬆</li>
+        <li>激昂</li>
+        <li>懷舊</li>
+        <li>憤怒</li>
+        <li>愛戀</li>
+        <li>驚奇</li>
+        <li>興奮</li>
+        <li>孤獨</li>
+        <li>安慰</li>
+        <li>迷茫</li>
+        <li>熱情</li>
+        <li>輕鬆</li>
+        <li>幸福</li>
+        <li>感傷</li>
+        <li>困惑</li>
+        <li>愉悅</li>
+        <li>振奮</li>
+        <li>平靜</li>
+    </ul>
+    <input type="text" id="mood" placeholder="輸入你的心情">
+    <button onclick="getRecommendations()">獲取推薦</button>
+
+    <h2>推薦歌曲：</h2>
+    <ul id="recommendations"></ul>
+
+    <script>
+        function getRecommendations() {
+    const mood = document.getElementById('mood').value;
+    fetch('/recommend', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ mood: mood })
+    })
+    .then(response => response.json())
+    .then(data => {
+        const recommendations = document.getElementById('recommendations');
+        recommendations.innerHTML = '';
+        if (data.error) {
+            recommendations.textContent = data.error;
+        } else {
+            data.forEach(song => {
+                const li = document.createElement('li');
+                li.textContent = `${song['歌曲名稱']} - ${song['樂團名稱']}`;  // 確保使用的鍵名與後端返回的 JSON 一致
+                recommendations.appendChild(li);
+            });
+        }
+    });
+}
+    </script>
+</body>
+</html>
